@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no, email=no, address=no, date=no" />
+  <title>NANASE ITO — Makeup artist</title>
+  <meta name="description" content="Nanase Ito, Japanese makeup artist based in New York." />
+  <meta name="robots" content="noindex" />
+
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" />
+  <!-- Brand typography (.brand / .brand-line, --brand-* and their breakpoints) comes from overview.css,
+       so HOME and Overview always share the same values. -->
+  <link rel="stylesheet" href="overview.css" />
+  <style>
+    /* Single Top HOME: one photo, no scroll. The whole screen is one link to overview.html. */
+    html, body { height: 100%; overflow: hidden; background: #fff; }
+    .home-link {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .home-link:focus-visible { outline-offset: -6px; }
+    /* Same as Overview: name 2 rows, profession = second line */
+    .brand-sub { font-size: var(--brand-role-size); }
+    /* Photo: centred, aspect ratio kept (no cropping), fitted inside the screen.
+       Top and bottom keep the header height free so it never sits under the brand. */
+    .home-photo {
+      display: block;
+      width: auto; height: auto;
+      max-width: calc(100vw - var(--header-edge) * 2);
+      max-height: calc(100vh - var(--header-height) * 2);
+      max-height: calc(100dvh - var(--header-height) * 2);
+    }
+  </style>
+</head>
+
+<body>
+  <a class="home-link" href="overview.html" aria-label="Nanase Ito, Makeup Artist — Overview">
+    <span class="brand">
+      <span class="brand-line">Nanase Ito</span>
+      <span class="brand-line brand-sub">Makeup Artist</span>
+    </span>
+    <img class="home-photo" src="img/teeth-magazine/02.webp" width="960" height="1200" alt="TEETH MAGAZINE" />
+  </a>
+</body>
+</html>
