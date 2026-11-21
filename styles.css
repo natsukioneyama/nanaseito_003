@@ -578,6 +578,10 @@ html:where(:root.single-top), :where(:root.single-top) body {
 }
 @media (max-width: 767px) {
   :where(:root.single-top) .home-bio { font-size: 11px; }
+  /* Mobile: brand and bio in bold (Cormorant Garamond 700, loaded in index.html) */
+  :where(:root.single-top) .home-header .brand,
+  :where(:root.single-top) .home-header .brand-sub,
+  :where(:root.single-top) .home-bio { font-weight: 700; }
 }
 /* iPhone (Pro Max 440px wide and narrower): bio slightly larger */
 @media (max-width: 440px) {
