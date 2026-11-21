@@ -523,7 +523,7 @@ html:where(:root.single-top), :where(:root.single-top) body {
   color: #fff;
   mix-blend-mode: difference;
   /* Same family / weight as the brand (overview.css --brand-font, Cormorant Garamond 300) */
-  font: var(--brand-font-weight) clamp(12px, 1.59vw, 22.5px) / 1.2 var(--brand-font);
+  font: var(--brand-font-weight) 14px / 1.2 var(--brand-font); /* mobile: 11px (below) */
   pointer-events: auto;
 }
 :where(:root.single-top) .home-bio p { margin: 0; }
@@ -532,7 +532,7 @@ html:where(:root.single-top), :where(:root.single-top) body {
   clear: both;
   margin-top: clamp(14px, 3vh, 28px);
   text-align: right;
-  font: 400 var(--nav-size) / 1.2 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 400 11px / 1.2 "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
 }
 :where(:root.single-top) .home-nav a { pointer-events: auto; }
@@ -562,7 +562,7 @@ html:where(:root.single-top), :where(:root.single-top) body {
 :where(:root.single-top) .home-contact {
   position: relative;
   margin: 0;
-  font: 400 10px / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 400 11px / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #000;
   pointer-events: none;
   grid-row: 3; /* keep it at the bottom now that the stage is out of the grid */
@@ -575,5 +575,7 @@ html:where(:root.single-top), :where(:root.single-top) body {
 
 @media (min-width: 768px) {
   :where(:root.single-top) .scrubber { width: min(46vw, 36.8dvh, 80cqh); }
-  :where(:root.single-top) .home-contact { font-size: 12px; }
+}
+@media (max-width: 767px) {
+  :where(:root.single-top) .home-bio { font-size: 11px; }
 }
