@@ -493,8 +493,6 @@ html:where(:root.single-top), :where(:root.single-top) body {
   grid-template-rows: auto minmax(80px, 1fr) auto;
   row-gap: clamp(12px, 3vh, 26px);
 }
-:where(:root.single-top) .home-link { position: fixed; inset: 0; }
-:where(:root.single-top) .home-link:focus-visible { outline-offset: -6px; }
 
 :where(:root.single-top) .home-header {
   position: relative;
@@ -540,7 +538,7 @@ html:where(:root.single-top), :where(:root.single-top) body {
 :where(:root.single-top) .home-nav a { pointer-events: auto; }
 
 /* The stage is fixed to the viewport so the photo is always at the centre of the screen,
-   regardless of the bio's height (it may overlap the text). It leaves the surrounding white space clickable. */
+   regardless of the bio's height (it may overlap the text). Only the image itself takes pointer input. */
 :where(:root.single-top) .scrubber-stage {
   position: fixed; inset: 0; z-index: 1;
   display: flex; align-items: center; justify-content: center;

@@ -76,7 +76,7 @@ button:focus-visible, a:focus-visible { outline: 1px solid currentColor; outline
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px; align-items: start;
 }
-#grid.mi-grid .jl-item { position: static; width: 100%; aspect-ratio: var(--ar); }
+#grid.mi-grid .jl-item { position: relative; width: 100%; aspect-ratio: var(--ar); } /* relative: anchors the veil / caption below */
 /* 768px 以上は overview.js が Justified Layout で1行に配置（高さ統一）。下の gap はその間隔として読まれる。
    768–1023px: 間隔を 1024px で 12px になる比率で縮小 */
 @media (max-width: 1023px) { #grid.mi-grid { gap: 1.171875vw; } } /* = 12px × 幅 / 1024px */
@@ -90,14 +90,16 @@ button:focus-visible, a:focus-visible { outline: 1px solid currentColor; outline
 .jl-item img, .jl-item video { width: 100%; height: 100%; object-fit: contain; display: block; transform-origin: center; transition: transform 180ms ease; }
 .jl-item:focus-visible { z-index: 2; }
 .jl-item:focus-visible img, .jl-item:focus-visible video { transform: scale(1.065); }
-.jl-item.selected { z-index: 2; }
-.jl-item.selected img, .jl-item.selected video { transform: scale(0.85); }
-/* hover-groupはoverview.jsが同一project内の全thumbnailに付与。タッチのtap-to-previewにも使うためmedia queryで絞らない */
-.jl-item.hover-group { z-index: 2; }
-.jl-item.hover-group img, .jl-item.hover-group video { transform: scale(0.85); }
-.bottom-nav, .modal-footer { position: fixed; bottom: 0; left: 0; right: 0; padding: 9px max(var(--edge), env(safe-area-inset-right)) max(9px, env(safe-area-inset-bottom)) max(var(--edge), env(safe-area-inset-left)); min-height: 46px; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size:11px;   text-transform: uppercase;}
-.bottom-nav { z-index: 5; background: var(--bg); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
-.bottom-nav[inert], .brand[inert], .brand[inert] ~ .header-bg { visibility: hidden; }
+/* Overview / Moving Image (overview.js): hover / first tap = white veil over all of the project's
+   thumbnails; the caption sits on the project's first thumbnail (data-head). Values from the
+   Natsuki Oneyama site (Desktop/website overview.css). */
+.jl-item.is-in-group::after { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(255, 255, 255, 0.763); pointer-events: none; }
+.ov-cap { position: absolute; left: 4px; top: 2px; z-index: 2; max-width: calc(100% - 8px); color: #000; font-size: 9px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.3; text-align: left; opacity: 0; pointer-events: none; }
+.ov-cap span { display: block; }
+.ov-cap span + span { opacity: 0.9; }
+.jl-item[data-head="1"].is-in-group .ov-cap { opacity: 1; }
+.modal-footer { position: fixed; bottom: 0; left: 0; right: 0; padding: 9px max(var(--edge), env(safe-area-inset-right)) max(9px, env(safe-area-inset-bottom)) max(var(--edge), env(safe-area-inset-left)); min-height: 46px; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size:11px;   text-transform: uppercase;}
+.brand[inert], .brand[inert] ~ .header-bg { visibility: hidden; }
 .caption { line-height: 1.25; min-height: 30px; }
 .caption span { display: block; }
 

@@ -68,6 +68,26 @@
   // each button is created below, since sequence.map() reuses the same `project`
   // object reference for every media item of that project.
   const buttonsByProject = new Map();
+  // Overview and Moving Image: hover / first tap puts a white veil over all of the project's
+  // thumbnails and shows its caption on the project's first thumbnail only (.is-in-group /
+  // .ov-cap in overview.css) - same as the Natsuki Oneyama site (Desktop/website overview.js).
+  let highlighted = null;
+  function clearGroupHighlight() {
+    if (highlighted) buttonsByProject.get(highlighted).forEach(b => b.classList.remove('is-in-group'));
+    highlighted = null;
+  }
+  function setGroupHighlight(projectId) {
+    clearGroupHighlight();
+    highlighted = projectId;
+    buttonsByProject.get(projectId).forEach(b => b.classList.add('is-in-group'));
+  }
+  function groupCaption(project) {
+    const cap = document.createElement('span'); cap.className = 'ov-cap';
+    cap.append(...[...new Set([project.title, project.line1, project.line2].filter(Boolean))].map(text => {
+      const line = document.createElement('span'); line.textContent = text; return line;
+    }));
+    return cap;
+  }
   const buttons = sequence.map(({project, media: m}, index) => {
     const button = document.createElement('button'); button.className = 'jl-item';
     button.type = 'button'; button.setAttribute('aria-label', `${project.title}, image ${index + 1}: open media`);
@@ -75,49 +95,39 @@
     const node = document.createElement(m.type === 'video' ? 'video' : 'img');
     if (m.type === 'video') {
       node.muted = true; node.loop = true; node.playsInline = true; node.preload = 'metadata';
-      node.src = m.src; videos.add(node); observer.observe(node);
+      // #t=0.001 makes Safari paint the first frame even when autoplay is blocked (Low Power
+      // Mode etc.); with autoplay it plays as before. Thumbnails only - the Lightbox uses m.src.
+      node.src = m.src + '#t=0.001'; videos.add(node); observer.observe(node);
     } else {
       node.src = m.thumb; node.alt = m.alt || project.title;
       node.width = m.width; node.height = m.height; node.loading = 'lazy'; node.decoding = 'async';
     }
     node.draggable = false; button.append(node); grid.append(button);
-    if (!buttonsByProject.has(project.id)) buttonsByProject.set(project.id, []);
+    if (!buttonsByProject.has(project.id)) {
+      buttonsByProject.set(project.id, []);
+      button.dataset.head = '1'; button.append(groupCaption(project));
+    }
     buttonsByProject.get(project.id).push(button);
-    // Hovering scales this button's whole project (see .hover-group in
-    // overview.css), not just itself. Moving the pointer between two thumbnails of
-    // the same project fires this project's mouseleave and mouseenter back to back
-    // within the same synchronous pointer-move handling, before the next paint, so
-    // the group's highlight never visibly drops in between - no debounce needed.
-    button.addEventListener('mouseenter', () => {
-      if (!fine()) return;
-      caption($('overview-caption'), index);
-      buttonsByProject.get(project.id).forEach(b => b.classList.add('hover-group'));
-    });
-    button.addEventListener('mouseleave', () => {
-      if (!fine()) return;
-      caption($('overview-caption'), selected);
-      buttonsByProject.get(project.id).forEach(b => b.classList.remove('hover-group'));
-    });
-    button.addEventListener('focus', () => caption($('overview-caption'), index));
+    button.addEventListener('mouseenter', () => { if (fine()) setGroupHighlight(project.id); });
+    button.addEventListener('mouseleave', () => { if (fine()) clearGroupHighlight(); });
     button.addEventListener('click', e => {
-      if (fine() || e.detail === 0 || selected === index) openModal(index, e.detail === 0);
-      else {
-        // Touch has no hover, so a first tap previews (this branch) and a second
-        // tap on the same item opens it (the `selected === index` case above) -
-        // unchanged. What's new: the preview now also scales the whole project via
-        // the same .hover-group class/CSS the Desktop mouseenter path uses above,
-        // not just this one button, so touch and hover show the same grouped
-        // feedback. Clears the previous selection's group first (not just its own
-        // .selected) so switching preview targets doesn't leave a stale group scaled.
-        buttons[selected]?.classList.remove('selected');
-        if (selected >= 0) buttonsByProject.get(sequence[selected].project.id).forEach(b => b.classList.remove('hover-group'));
+      if (fine() || e.detail === 0 || selected === index) {
+        selected = -1;
+        clearGroupHighlight();
+        openModal(index, e.detail === 0);
+      } else {
+        // Touch: the first tap previews the project, a second tap on the same item opens it.
         selected = index;
-        button.classList.add('selected');
-        buttonsByProject.get(project.id).forEach(b => b.classList.add('hover-group'));
-        caption($('overview-caption'), index);
+        setGroupHighlight(project.id);
       }
     });
     return button;
+  });
+  // A tap anywhere but a thumbnail ends the touch preview, so it can't get stuck.
+  document.addEventListener('click', e => {
+    if (selected < 0 || e.target.closest('.jl-item')) return;
+    selected = -1;
+    clearGroupHighlight();
   });
 
   // Same aspect-ratio -> justifiedLayout -> absolute box placement as HTML12.02.
@@ -170,7 +180,7 @@
   function lock(panel) {
     returnFocus = document.activeElement; scrollY = window.scrollY; active = panel;
     Object.assign(document.body.style, {position:'fixed', top:-scrollY+'px', width:'100%'});
-    $('overview').inert = true; $('overview-nav').inert = true; $('brand').inert = true; headerNav.inert = true;
+    $('overview').inert = true; $('brand').inert = true; headerNav.inert = true;
     panel.hidden = false; syncVideos();
   }
   // `node` is a stage child: an <img>, or the .modal-video wrapper holding the <video>.
@@ -186,7 +196,7 @@
   function close() {
     if (!active) return;
     disposeAll(); active.hidden = true; active = null; current = -1; gesture = null;
-    $('overview').inert = false; $('overview-nav').inert = false; $('brand').inert = false; headerNav.inert = false;
+    $('overview').inert = false; $('brand').inert = false; headerNav.inert = false;
     Object.assign(document.body.style, {position:'', top:'', width:''});
     window.scrollTo(0,scrollY); returnFocus?.focus({preventScroll:true}); syncVideos();
   }
