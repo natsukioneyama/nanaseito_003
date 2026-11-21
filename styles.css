@@ -1,17 +1,18 @@
+/* Existing INFORMATION and legacy layout styles */
 /* ========================================
    Base
    ======================================== */
 
-* { box-sizing: border-box; }
-html, body { height: 100%; }
+:where(:root:not(.single-top)) * { box-sizing: border-box; }
+html:where(:root:not(.single-top)), :where(:root:not(.single-top)) body { height: 100%; }
 
 /* 背景色: overview.css と同じ（:root { --bg: #fff; background: var(--bg) }） */
-:root{
+:root:where(:root:not(.single-top)){
   --bg: #fff;
   background: var(--bg);
 }
 
-body{
+:where(:root:not(.single-top)) body{
   margin: 0;
   /* 参考コードの acumin-pro (Typekit) は別サイトのキットのため読み込まず、既存 site/ と同じ書体を使用 */
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -25,13 +26,13 @@ body{
    Layout
    ======================================== */
 
-.layout{
+:where(:root:not(.single-top)) .layout{
   min-height: 100svh;
   display: grid;
   grid-template-columns: 1fr;
 }
 
-.main{
+:where(:root:not(.single-top)) .main{
   padding: 24px;
 }
 
@@ -39,22 +40,22 @@ body{
    NAV (shared)
    ======================================== */
 
-.nav{
+:where(:root:not(.single-top)) .nav{
   background: var(--bg);
   transition: opacity 0.3s ease;
   will-change: opacity;
 }
 
-.nav.is-faded{
+:where(:root:not(.single-top)) .nav.is-faded{
   opacity: 1;
   pointer-events: auto;
 }
 
-.nav-inner{
+:where(:root:not(.single-top)) .nav-inner{
   padding: 24px 18px;
 }
 
-.nav-top{
+:where(:root:not(.single-top)) .nav-top{
   display: flex;
   align-items: flex-start;
 }
@@ -62,7 +63,7 @@ body{
 /* ブランド表記（名前・職業）: HOME / Overview / Information で共通の値。
    Cormorant Garamond 300 は Helvetica より小さく見えるため、Overview の旧サイズ
    (Helvetica 28px / 16px) とキャップハイトが揃う 8/7 倍に設定。 */
-:root{
+:root:where(:root:not(.single-top)){
   --brand-font: "Cormorant Garamond", "Helvetica Neue", Helvetica, Arial, serif;
   --brand-font-weight: 300;
   --brand-name-size: 32px;
@@ -70,7 +71,7 @@ body{
   --brand-line-height: 1.2;
 }
 @media (max-width: 767px){
-  :root{
+  :root:where(:root:not(.single-top)){
     --brand-name-size: 26px;
     --brand-role-size: 18px;
   }
@@ -78,7 +79,7 @@ body{
 
 .brand,
 .brand-sub,
-.hp-name span{
+:where(:root:not(.single-top)) .hp-name span{
   display: block;
   font-family: var(--brand-font);
   font-weight: var(--brand-font-weight);
@@ -89,18 +90,18 @@ body{
 }
 
 .brand,
-.hp-name .hp-name__name{ font-size: var(--brand-name-size); }
+:where(:root:not(.single-top)) .hp-name .hp-name__name{ font-size: var(--brand-name-size); }
 
 .brand-sub,
-.hp-name .hp-name__role{ font-size: var(--brand-role-size); }
+:where(:root:not(.single-top)) .hp-name .hp-name__role{ font-size: var(--brand-role-size); }
 
-.nav-menu{
+:where(:root:not(.single-top)) .nav-menu{
   margin-top: 24px; /* 18 → 24: ブランド表記の拡大に合わせて作品タイトルとの間を確保 */
   display: flex;
   flex-direction: column;
 }
 
-.nav-label {
+:where(:root:not(.single-top)) .nav-label {
   font-size: 0.6rem;
   letter-spacing: 0.08em;
   opacity: 0.55;
@@ -109,19 +110,19 @@ body{
 }
 
 /* NEWEST WORKS 直下の現在のプロジェクト名（スクロール位置に連動） */
-.nav-current{
+:where(:root:not(.single-top)) .nav-current{
   font-size: 0.7rem;
   padding: 3px 0;
   min-height: calc(0.7rem * 1.35 + 6px); /* 切替時も高さを固定 */
   line-height: 5.35;
 }
 
-.nav-menu .nav-link[href*="overview"] {
+:where(:root:not(.single-top)) .nav-menu .nav-link[href*="overview"] {
   margin-top: 50px;
 }
 
 
-.nav-link{
+:where(:root:not(.single-top)) .nav-link{
   display: inline-block;
   text-decoration: none;
   color: #111;
@@ -130,16 +131,16 @@ body{
   opacity: 0.85;
 }
 
-.nav-link:hover{ opacity: 1; }
+:where(:root:not(.single-top)) .nav-link:hover{ opacity: 1; }
 
 .nav-link.is-active,
-.nav-link[aria-current="page"]{
+:where(:root:not(.single-top)) .nav-link[aria-current="page"]{
   text-decoration: underline;
   opacity: 1;
 }
 
 /* “Information” link (same look/feel as nav) */
-.nav .js-info{
+:where(:root:not(.single-top)) .nav .js-info{
   font-size: 0.7rem;
   color: inherit;
   text-decoration: none;
@@ -147,13 +148,13 @@ body{
   white-space: nowrap;
   padding-top: 10px;
 }
-.nav .js-info:hover{ opacity: 0.75; }
+:where(:root:not(.single-top)) .nav .js-info:hover{ opacity: 0.75; }
 
 /* ========================================
    Info page (shared)
    ======================================== */
 
-.info-page{
+:where(:root:not(.single-top)) .info-page{
   position: fixed;
   inset: 0;
   background: var(--bg);
@@ -161,13 +162,13 @@ body{
   z-index: 1200;
 }
 
-body.info-open .info-page{ display: block; }
-body.info-open{ overflow: hidden; }
+:where(:root:not(.single-top)) body.info-open .info-page{ display: block; }
+:where(:root:not(.single-top)) body.info-open{ overflow: hidden; }
 
 /* 独立ページ（info.html）では内容が画面を超えた場合にスクロールできるように */
-.info-page{ overflow-y: auto; }
+:where(:root:not(.single-top)) .info-page{ overflow-y: auto; }
 
-.info-page__inner{
+:where(:root:not(.single-top)) .info-page__inner{
   padding: 16px;
   line-height: 1.5;
   font-size: 0.6rem;
@@ -177,40 +178,40 @@ body.info-open{ overflow: hidden; }
 
 .hp-label,
 .hp-list,
-.hp-note{
+:where(:root:not(.single-top)) .hp-note{
   margin: 0 0 26px;
 }
 
-.hp-pdflink{ margin: 56px 0; }
+:where(:root:not(.single-top)) .hp-pdflink{ margin: 56px 0; }
 
-.hp-copyright{
+:where(:root:not(.single-top)) .hp-copyright{
   margin-top: 60px;
   font-size: 0.6rem;
   font-weight: 100;
   letter-spacing: 0.06em;
 }
 
-.info-page a{
+:where(:root:not(.single-top)) .info-page a{
   color: inherit;
   text-decoration: none;
 }
-.info-page a:hover{ opacity: 0.75; }
+:where(:root:not(.single-top)) .info-page a:hover{ opacity: 0.75; }
 
-.info-back{
+:where(:root:not(.single-top)) .info-back{
   display: inline-block;
   margin-bottom: 32px;
   font-size: 0.6rem;
   letter-spacing: 0.06em;
   cursor: pointer;
 }
-.info-back:hover{ opacity: 0.7; }
+:where(:root:not(.single-top)) .info-back:hover{ opacity: 0.7; }
 
 /* ========================================
    Responsive nav layout (shared)
    ======================================== */
 
 @media (min-width: 861px){
-  .nav{
+  :where(:root:not(.single-top)) .nav{
     position: fixed;
     left: 0;
     top: 0;
@@ -219,23 +220,23 @@ body.info-open{ overflow: hidden; }
     z-index: 1000;
   }
 
-  .nav-inner{
+  :where(:root:not(.single-top)) .nav-inner{
     height: 100svh;
     overflow: auto;
   }
 
-  .nav-top{
+  :where(:root:not(.single-top)) .nav-top{
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .main{
+  :where(:root:not(.single-top)) .main{
     padding: 24px;
     padding-left: calc(180px + 24px);
     transition: padding-left 0.25s ease;
   }
 
-  .layout.is-nav-faded .main{
+  :where(:root:not(.single-top)) .layout.is-nav-faded .main{
     padding-left: 24px;
   }
 }
@@ -248,7 +249,7 @@ body.info-open{ overflow: hidden; }
    ======================================== */
 
 /* Overview の --header-edge / --nav-size / --header-top / --header-pad-bottom / --edge と同値 */
-:root{
+:root:where(:root:not(.single-top)){
   --m-header-edge: 24px;
   --m-nav-size: 13px;
   --m-header-top: max(18px, env(safe-area-inset-top));
@@ -256,7 +257,7 @@ body.info-open{ overflow: hidden; }
   --m-caption-edge: 14px;
 }
 @media (max-width: 767px){
-  :root{
+  :root:where(:root:not(.single-top)){
     --m-header-edge: 20px;
     --m-nav-size: 10px;
     --m-header-top: max(12px, env(safe-area-inset-top));
@@ -266,10 +267,10 @@ body.info-open{ overflow: hidden; }
 }
 
 /* 画像下キャプション（PC ではサイドナビにタイトルを出すので非表示） */
-.m-caption{ display: none; }
+:where(:root:not(.single-top)) .m-caption{ display: none; }
 
 @media (max-width: 860px){
-  .nav{
+  :where(:root:not(.single-top)) .nav{
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -279,7 +280,7 @@ body.info-open{ overflow: hidden; }
     -webkit-backdrop-filter: blur(16px);
   }
 
-  .nav-inner{
+  :where(:root:not(.single-top)) .nav-inner{
     display: flex;
     align-items: flex-end; /* リンクの行を職業の行と下揃え */
     justify-content: space-between;
@@ -287,14 +288,14 @@ body.info-open{ overflow: hidden; }
     padding: var(--m-header-top) max(var(--m-header-edge), env(safe-area-inset-right)) var(--m-header-pad-bottom) max(var(--m-header-edge), env(safe-area-inset-left));
   }
 
-  .nav-top{
+  :where(:root:not(.single-top)) .nav-top{
     display: flex;
     flex-direction: column; /* Overview と同じく名前の下に職業 */
     align-items: flex-start;
     gap: 0;
   }
 
-  .nav-menu{
+  :where(:root:not(.single-top)) .nav-menu{
     margin: 0;
     padding: 0;
     display: flex;
@@ -307,25 +308,25 @@ body.info-open{ overflow: hidden; }
   }
 
   /* 作品タイトルは下端のキャプションに表示 */
-  .nav-current{ display: none; }
+  :where(:root:not(.single-top)) .nav-current{ display: none; }
 
   .nav-link,
-  .nav .js-info{
+  :where(:root:not(.single-top)) .nav .js-info{
     font-size: var(--m-nav-size);
     line-height: 1.2;
     padding: 0;
     margin: 0;
     opacity: 1;
   }
-  .nav-menu .nav-link[href*="overview"]{ margin-top: 0; }
+  :where(:root:not(.single-top)) .nav-menu .nav-link[href*="overview"]{ margin-top: 0; }
 
   /* 下端固定キャプションの高さ分、最後の画像が隠れないように余白を確保 */
-  .main{
+  :where(:root:not(.single-top)) .main{
     padding: 16px;
     padding-bottom: calc(46px + 16px + env(safe-area-inset-bottom));
   }
 
-  .m-caption{
+  :where(:root:not(.single-top)) .m-caption{
     position: fixed;
     left: 0;
     right: 0;
@@ -345,8 +346,8 @@ body.info-open{ overflow: hidden; }
     text-align: left;
   }
 
-  .m-caption__inner{ min-height: 30px; }
-  .m-caption__inner span{ display: block; }
+  :where(:root:not(.single-top)) .m-caption__inner{ min-height: 30px; }
+  :where(:root:not(.single-top)) .m-caption__inner span{ display: block; }
 }
 
 /* ========================================
@@ -362,27 +363,27 @@ body.info-open{ overflow: hidden; }
    ここでは “上書きしない” ほうが整理しやすい。
    ただし portrait 時のギャラリー幅だけはここで定義する。 */
 
-.grid{
+:where(:root:not(.single-top)) .grid{
   width: min(980px, 100%);
   margin: 0 auto;
 }
 
-.grid-inner{
+:where(:root:not(.single-top)) .grid-inner{
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
 }
 
-.grid-inner::before{
+:where(:root:not(.single-top)) .grid-inner::before{
   content: none;
 }
 
-.card{
+:where(:root:not(.single-top)) .card{
   margin: 0;
   width: 100%;
 }
 
-.card img{
+:where(:root:not(.single-top)) .card img{
   display: block;
   width: 100%;
   height: auto;
@@ -390,8 +391,8 @@ body.info-open{ overflow: hidden; }
 
 /* portrait/mobile spacing tweak (optional) */
 @media (max-width: 860px){
-  .grid{ width: 100%; }
-  .grid-inner{ gap: 16px; }
+  :where(:root:not(.single-top)) .grid{ width: 100%; }
+  :where(:root:not(.single-top)) .grid-inner{ gap: 16px; }
 }
 
 /* --- Horizontal scroll mode (desktop landscape) --- */
@@ -399,19 +400,19 @@ body.info-open{ overflow: hidden; }
 
   /* main の left padding は shared 側(= nav幅ぶん)を維持する想定。
      横モードだけ、縦スクロール混入を防ぐために overflow を切る。 */
-  .main{
+  :where(:root:not(.single-top)) .main{
     padding-top: 0;
     padding-right: 0;
     padding-bottom: 0;
     overflow: hidden;
   }
 
-  .grid{
+  :where(:root:not(.single-top)) .grid{
     width: 100%;
     margin: 0;
   }
 
-  .grid-inner{
+  :where(:root:not(.single-top)) .grid-inner{
     display: flex;
     gap: 48px;
 
@@ -429,18 +430,18 @@ body.info-open{ overflow: hidden; }
   }
 
   /* 左余白スペーサー（nav幅ぶん） */
-  .grid-inner::before{
+  :where(:root:not(.single-top)) .grid-inner::before{
     content: none;
   }
 
-  .card{
+  :where(:root:not(.single-top)) .card{
     flex: 0 0 auto;
     width: auto;
     margin: 0;
     scroll-snap-align: start;
   }
 
-  .card img{
+  :where(:root:not(.single-top)) .card img{
     width: auto;
     height: calc(100svh - 48px);
     max-height: 900px;
@@ -457,12 +458,12 @@ body.info-open{ overflow: hidden; }
 
 
 /* マウスホイール（縦）→ 横スクロール変換中は snap を一時停止（script.js） */
-.grid-inner.is-wheeling{
+:where(:root:not(.single-top)) .grid-inner.is-wheeling{
   scroll-snap-type: none;
 }
 
 /* Information: Biography 本文（Helvetica Neue。ラベル類 0.6rem より一段大きく、読みやすい行幅に制限） */
-.hp-bio{
+:where(:root:not(.single-top)) .hp-bio{
   max-width: 34em;
   margin: 0 0 44px; /* 問い合わせ先との間 */
   font-size: 0.75rem;
@@ -471,5 +472,110 @@ body.info-open{ overflow: hidden; }
   letter-spacing: 0.01em;
   text-align: left;
 }
-.hp-bio p{ margin: 0 0 1em; }
-.hp-bio p:last-child{ margin-bottom: 0; }
+:where(:root:not(.single-top)) .hp-bio p{ margin: 0 0 1em; }
+:where(:root:not(.single-top)) .hp-bio p:last-child{ margin-bottom: 0; }
+
+/* Single Top HOME */
+html:where(:root.single-top), :where(:root.single-top) body {
+  min-height: 100%;
+  background: #fff;
+}
+:where(:root.single-top) body {
+  box-sizing: border-box;
+  width: min(100%, 1180px);
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: max(clamp(22px, 6vh, 50px), env(safe-area-inset-top))
+    max(var(--header-edge), env(safe-area-inset-right))
+    max(clamp(20px, 5vh, 40px), env(safe-area-inset-bottom))
+    max(var(--header-edge), env(safe-area-inset-left));
+  display: grid;
+  grid-template-rows: auto minmax(80px, 1fr) auto;
+  row-gap: clamp(12px, 3vh, 26px);
+}
+:where(:root.single-top) .home-link { position: fixed; inset: 0; }
+:where(:root.single-top) .home-link:focus-visible { outline-offset: -6px; }
+
+:where(:root.single-top) .home-header {
+  position: relative;
+  pointer-events: none;
+}
+/* Brand floats left; the bio (one paragraph) starts beside it and wraps under it to the left edge.
+   The same gap is used to the right of and below the brand so the two read as one margin. */
+/* HOME only: brand smaller than Overview's (32/18, mobile 26/18) so it sits beside ~3–4 lines of bio.
+   Scales linearly from 16 / 11.5px at 375px to 28 / 16px at 1440px. Overview / Information keep their sizes. */
+:where(:root.single-top) .home-header {
+  --brand-gap: clamp(8px, 1.2vw, 18px);
+  --brand-name-size: clamp(16px, 11.77px + 1.127vw, 28px);
+  --brand-role-size: clamp(11.5px, 9.92px + 0.4225vw, 16px);
+}
+:where(:root.single-top) .home-header .brand {
+  position: relative; z-index: 3; /* in front of the photo, and of the bio box that runs under the float (keeps the link clickable) */
+  inset: auto; /* cancel overview.css .brand left / top (they would shift a relative box) */
+  float: left;
+  margin: 0 var(--brand-gap) var(--brand-gap) 0;
+  pointer-events: auto;
+}
+:where(:root.single-top) .brand-sub { font-size: var(--brand-role-size); }
+:where(:root.single-top) .home-bio {
+  /* In front of the photo and blended with it: white + difference reads black on the white page
+     and inverts where it overlaps the photo. The header must not be a stacking context, or the
+     blend would be isolated from the photo. */
+  position: relative; z-index: 2;
+  color: #fff;
+  mix-blend-mode: difference;
+  /* Same family / weight as the brand (overview.css --brand-font, Cormorant Garamond 300) */
+  font: var(--brand-font-weight) clamp(12px, 1.59vw, 22.5px) / 1.2 var(--brand-font);
+  pointer-events: auto;
+}
+:where(:root.single-top) .home-bio p { margin: 0; }
+:where(:root.single-top) .home-nav {
+  position: relative; z-index: 2; /* in front of the photo */
+  clear: both;
+  margin-top: clamp(14px, 3vh, 28px);
+  text-align: right;
+  font: 400 var(--nav-size) / 1.2 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+}
+:where(:root.single-top) .home-nav a { pointer-events: auto; }
+
+/* The stage is fixed to the viewport so the photo is always at the centre of the screen,
+   regardless of the bio's height (it may overlap the text). It leaves the surrounding white space clickable. */
+:where(:root.single-top) .scrubber-stage {
+  position: fixed; inset: 0; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+  container-type: size;
+}
+:where(:root.single-top) .scrubber {
+  width: min(59.8vw, 80cqh); /* mobile: 46vw x 1.3; 80cqh keeps the 4:5 box inside the screen height */
+  aspect-ratio: 4 / 5;
+  display: flex; align-items: center; justify-content: center;
+}
+:where(:root.single-top) .scrubber:focus-visible { outline: 1px solid #000; outline-offset: 6px; }
+:where(:root.single-top) .scrubber-img {
+  display: block;
+  width: auto; height: auto; max-width: 100%; max-height: 100%;
+  pointer-events: auto; cursor: ew-resize;
+  touch-action: none; user-select: none; -webkit-user-select: none; -webkit-user-drag: none;
+  -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent;
+}
+
+:where(:root.single-top) .home-contact {
+  position: relative;
+  margin: 0;
+  font: 400 10px / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #000;
+  pointer-events: none;
+  grid-row: 3; /* keep it at the bottom now that the stage is out of the grid */
+}
+:where(:root.single-top) .home-contact a {
+  pointer-events: auto;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+  :where(:root.single-top) .scrubber { width: min(46vw, 36.8dvh, 80cqh); }
+  :where(:root.single-top) .home-contact { font-size: 12px; }
+}

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="single-top">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -15,35 +15,31 @@
   <!-- Brand typography (.brand / .brand-line, --brand-* and their breakpoints) comes from overview.css,
        so HOME and Overview always share the same values. -->
   <link rel="stylesheet" href="overview.css" />
-  <style>
-    /* Single Top HOME: one photo, no scroll. The whole screen is one link to overview.html. */
-    html, body { height: 100%; overflow: hidden; background: #fff; }
-    .home-link {
-      position: fixed; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .home-link:focus-visible { outline-offset: -6px; }
-    /* Same as Overview: name 2 rows, profession = second line */
-    .brand-sub { font-size: var(--brand-role-size); }
-    /* Photo: centred, aspect ratio kept (no cropping), fitted inside the screen.
-       Top and bottom keep the header height free so it never sits under the brand. */
-    .home-photo {
-      display: block;
-      width: auto; height: auto;
-      max-width: calc(100vw - var(--header-edge) * 2);
-      max-height: calc(100vh - var(--header-height) * 2);
-      max-height: calc(100dvh - var(--header-height) * 2);
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <a class="home-link" href="overview.html" aria-label="Nanase Ito, Makeup Artist — Overview">
-    <span class="brand">
+  <a class="home-link" href="overview.html" aria-label="Nanase Ito, Makeup Artist — Overview"></a>
+  <header class="home-header">
+    <a class="brand" href="overview.html">
       <span class="brand-line">Nanase Ito</span>
       <span class="brand-line brand-sub">Makeup Artist</span>
-    </span>
-    <img class="home-photo" src="img/teeth-magazine/02.webp" width="960" height="1200" alt="TEETH MAGAZINE" />
-  </a>
+    </a>
+    <div class="home-bio">
+      <p>Nanase is a Japanese makeup artist based in NY and Paris. After training in makeup in Japan and gaining over six years of experience working in Tokyo, she moved to NYC in 2019 to expand her career. Inspired by her early love of painting, she approaches makeup as a form of creative expression, combining technical precision with artistic vision. Since moving to New York, Nanase has worked on a wide variety of projects, including fashion shoots, runway shows, magazine editorials, commercial campaigns, and photo/video productions. Her work blends Japanese aesthetics with the dynamic energy of New York and Paris, resulting in distinctive, tailored looks for her clients.</p>
+    </div>
+    <nav class="home-nav" aria-label="Site"><a href="overview.html">Overview</a></nav>
+  </header>
+  <div class="scrubber-stage">
+    <div class="scrubber" id="scrubber" tabindex="0" role="group" aria-roledescription="slideshow" aria-label="Selected work">
+      <img class="scrubber-img" id="scrubber-img" src="img/dazed-beauty/01.webp" width="1000" height="1200" alt="DAZED BEAUTY" draggable="false" decoding="sync" />
+    </div>
+  </div>
+  <p class="home-contact">
+    Contact: <a href="mailto:itonanase11077@gmail.com">itonanase11077@gmail.com</a><br>
+    Instagram: <a href="https://www.instagram.com/nanaseitomakeup/" target="_blank" rel="noopener noreferrer">@nanaseitomakeup</a>
+  </p>
+  <script src="portfolio-data.js"></script>
+  <script src="home-scrubber.js"></script>
 </body>
 </html>
