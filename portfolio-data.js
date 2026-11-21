@@ -10,8 +10,8 @@ window.PORTFOLIO_PROJECTS = [
     "line1": "Lucka Ngo",
     "line2": "",
     "media": [
-      { "type": "image", "thumb": "thmbs/dazed-beauty/01.webp", "full": "img/dazed-beauty/01.webp", "alt": "DAZED BEAUTY", "width": 292, "height": 350, "dataW": 1000, "dataH": 1200 },
-      { "type": "image", "thumb": "thmbs/dazed-beauty/02.webp", "full": "img/dazed-beauty/02.webp", "alt": "DAZED BEAUTY", "width": 280, "height": 350, "dataW": 960, "dataH": 1200 },
+      { "type": "image", "thumb": "thmbs/dazed-beauty/01.webp", "full": "img/dazed-beauty/01.webp", "alt": "DAZED BEAUTY", "width": 280, "height": 350, "dataW": 960, "dataH": 1200 },
+      { "type": "image", "thumb": "thmbs/dazed-beauty/02.webp", "full": "img/dazed-beauty/02.webp", "alt": "DAZED BEAUTY", "width": 292, "height": 350, "dataW": 1000, "dataH": 1200 },
       { "type": "image", "thumb": "thmbs/dazed-beauty/03.webp", "full": "img/dazed-beauty/03.webp", "alt": "DAZED BEAUTY", "width": 280, "height": 350, "dataW": 961, "dataH": 1200 }
     ]
   },
