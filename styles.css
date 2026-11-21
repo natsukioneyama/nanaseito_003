@@ -532,7 +532,7 @@ html:where(:root.single-top), :where(:root.single-top) body {
   clear: both;
   margin-top: clamp(14px, 3vh, 28px);
   text-align: right;
-  font: 400 11px / 1.2 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 400 9px / 1.2 "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
 }
 :where(:root.single-top) .home-nav a { pointer-events: auto; }
@@ -562,7 +562,7 @@ html:where(:root.single-top), :where(:root.single-top) body {
 :where(:root.single-top) .home-contact {
   position: relative;
   margin: 0;
-  font: 400 11px / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 400 9px / 1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #000;
   pointer-events: none;
   grid-row: 3; /* keep it at the bottom now that the stage is out of the grid */
@@ -570,7 +570,7 @@ html:where(:root.single-top), :where(:root.single-top) body {
 :where(:root.single-top) .home-contact a {
   pointer-events: auto;
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 1px;
 }
 
 @media (min-width: 768px) {
@@ -578,4 +578,12 @@ html:where(:root.single-top), :where(:root.single-top) body {
 }
 @media (max-width: 767px) {
   :where(:root.single-top) .home-bio { font-size: 11px; }
+}
+/* iPhone (Pro Max 440px wide and narrower): bio slightly larger */
+@media (max-width: 440px) {
+  :where(:root.single-top) .home-bio { font-size: 12px; }
+}
+/* iPhone SE class (375 x 667 or shorter): scrubber 20% smaller than the mobile size above (59.8vw / 80cqh x 0.8) */
+@media (max-width: 375px) and (max-height: 667px) {
+  :where(:root.single-top) .scrubber { width: min(47.84vw, 64cqh); }
 }
